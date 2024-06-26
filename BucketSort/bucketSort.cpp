@@ -13,7 +13,6 @@ void bucketSort(std::vector<int>& vec) {
         maxVal = max(maxVal, val);
     }
     maxVal++;
-
     map<float, int> mp;
     vector<vector<float>> v(vec.size());
 
