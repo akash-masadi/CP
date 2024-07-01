@@ -1,79 +1,33 @@
-// ctrl+shift+b === to run
-
 #include<bits/stdc++.h>
 using namespace std;
 
-
-/// BST Node
-class Node
+long countWaysToMakeChange(int *arr, int n, int value)
 {
-    public:
-    int data;
-    Node* left;
-    Node* right;
-    Node(int data)
+    vector<vector<long>> dp(n,vector<long>(value+1,0));
+    sort(arr,arr+n);
+    for(int j=0;j<=value;j+=arr[0])
     {
-        this->data=data;
-        this->left=NULL;
-        this->right=NULL;
-    }
-};
-
-
-
-// Insertion into BST
-Node* insert(Node* root,int data)
-{
-    if(root==NULL)
+            dp[0][j]=1;
+    } 
+    for(int i=1;i<n;i++)
     {
-        return (Node*) new Node(data);
-    }
-    if(root->data>data)
-    {
-        root->left=insert(root->left,data);
-    }
-    else{
-        root->right=insert(root->right,data);
-    }
-    return root;
-}
-
-// Level order traversal
-void level_order( Node* root)
-{
-    if(!root) return;
-    cout<<"\nThe level order traversal : \n";
-    queue<Node*> q;
-    q.push(root);
-    while(!q.empty())
-    {
-        Node* curr = q.front();
-        q.pop();
-        cout<<curr->data<<'\t';
-        if(curr->left) q.push(curr->left);
-        if(curr->right) q.push(curr->right);
-    }
-    cout<<'\n';
-}
-
-int main()
-{
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n,data;
-        cin>>n;
-        Node* root;
-        for(int i=0;i<n;i++)
+        for(int j=0;j<=value;j++)
         {
-            cin>>data;
-            root=insert(root,data);
+            int notTake=dp[i-1][j],take=0;
+            if(j>=arr[i])
+            {
+                take=dp[i][j-arr[i]];
+            }
+            dp[i][j]=take+notTake;
         }
-        level_order(root);
-        // isBSt(root);
-        // convert_into_BST(root);
     }
+    return dp[n-1][value];
+}
 
-
+int main() {
+    int arr[] = {1 ,2 ,3};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int value = 4;
+    cout << countWaysToMakeChange(arr, n, value) << endl;
+    return 0;
 }

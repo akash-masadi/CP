@@ -26,6 +26,8 @@ public:
         *pq.begin()=*(pq.end()-1);
         pq.pop_back();
         heapify();
+        copy(pq.begin(), pq.end(), std::ostream_iterator<int>(std::cout, " "));
+        cout<<'\n';
         return x;
     }
 
@@ -35,7 +37,8 @@ void heapify() {
     int left = 2 * current + 1;
     int right = 2 * current + 2;
 
-    while (left < size) {
+    while (left < size) 
+    {
         int largest = current;
         if (left < size && pq[left] < pq[largest]) {
             largest = left;
@@ -72,6 +75,8 @@ void heapify() {
             }
             current = parent;
         }
+        copy(pq.begin(), pq.end(), std::ostream_iterator<int>(std::cout, " "));
+        cout<<'\n';
     }
 
     void print()

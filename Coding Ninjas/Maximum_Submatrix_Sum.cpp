@@ -1,4 +1,5 @@
 // This code effectively finds the maximum sum submatrix in a 2D matrix with a time complexity of O(N*N*M)
+// Extenede Kadane's algorithm
 #include <bits/stdc++.h>
 using namespace std;
 
